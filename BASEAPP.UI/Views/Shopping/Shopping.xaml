@@ -1,0 +1,110 @@
+﻿<UserControl x:Class="BASEAPP.UI.Views.Shopping.Shopping"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BASEAPP.UI.Views.Shopping"
+             mc:Ignorable="d" 
+             Height="1080"
+             xmlns:component="clr-namespace:BASEAPP.UI.Views.Components"
+             Width="1920"
+             Background="White">
+    <Canvas>
+
+        <component:HeaderBar/>
+
+        <StackPanel 
+            Orientation="Horizontal" 
+            Canvas.Top="120" 
+            Canvas.Right="20">
+            <StackPanel 
+                Height="30" 
+                Orientation="Horizontal"    
+                Width="240" 
+                Effect="{StaticResource EffectShadow1}">
+
+                <TextBox 
+                    Width="210" 
+                    Height="30" 
+                    FontSize="17" 
+                    Padding="2" 
+                    Text="{Binding ProductName}"/>
+
+                <Button 
+                    Effect="{StaticResource EffectShadow1}"
+                    HorizontalAlignment="Left"
+                    Command="{Binding SearchCommand}"
+                    Width="25" Height="25"
+                    FocusVisualStyle="{x:Null}" 
+                    Margin="5 0 0 0"
+                    Style="{DynamicResource OpacityButtonStyle}"
+                    BorderBrush="Transparent">
+                    <Button.Background>
+                        <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/Images/icons_search.png" Stretch="UniformToFill" />
+                    </Button.Background>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+
+        <ScrollViewer
+            Height="890"
+            Canvas.Top="120"
+            Canvas.Left="50">
+            <ItemsControl 
+                VerticalAlignment="Top"
+                ItemsSource="{Binding LsProduct}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="4"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel 
+                            Background="White"
+                            Width="350"
+                            Height="280"
+                            Effect="{StaticResource EffectShadow2}"
+                            Margin="8">
+
+                            <StackPanel 
+                                Margin="10" 
+                                Orientation="Vertical">
+
+                                <TextBlock 
+                                    FontSize="20"
+                                    Text="{Binding Name}" 
+                                    FontWeight="Bold" />
+
+                                <TextBlock FontSize="15">
+                                <Run Text="{Binding Price}" />
+                                <Run Text=" VND" />
+                                </TextBlock>
+
+                                <Rectangle 
+                                    Margin="10"
+                                    Fill="LightBlue"
+                                    Width="200" 
+                                    Height="150" />
+
+                                <TextBlock 
+                                    FontSize="14"
+                                    Text="{Binding Description}" 
+                                    TextWrapping="Wrap" />
+
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <component:PageBar
+            PageCount="{Binding PageCount, Mode=TwoWay}"
+            PageCLickCommand="{Binding PageCLickCommand, Mode=TwoWay}"
+            PageIndex="{Binding PageIndex, Mode=TwoWay}"
+            Canvas.Bottom="15"
+            Canvas.Left="55"/>
+
+    </Canvas>
+</UserControl>
